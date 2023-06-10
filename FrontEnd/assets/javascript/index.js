@@ -27,7 +27,7 @@ fetch("http://localhost:5678/api/works")
       // If their is no token, only display the filters and the gallery
       createArticle(result);
       createButton("Tous", "btn-all");
-      createButton("Objets", "btn-objects");
+      createButton("Objets", "btn-objects" );
       createButton("Appartements", "btn-apartments");
       createButton(`Hôtels & restaurants`, "btn-hotels");
       filtersAll(result);
@@ -116,7 +116,7 @@ function blackBar() {
   icon.classList.add("fa-regular", "fa-pen-to-square");
   let h3 = document.createElement("h3");
   h3.innerHTML = "Mode édition";
-  let link = document.createElement("buttongit");
+  let link = document.createElement("button");
   link.setAttribute("href", "#");
   link.textContent = "publier les changements";
 

@@ -30,12 +30,20 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFEF8;
+}
+main{
+    margin:20px;
 }
 ol, ul {
 	list-style: none;
 }
 a:visited {
 	color: #000000;
+    font-weight: 900;
 }
 blockquote, q {
 	quotes: none;
@@ -66,17 +74,19 @@ body {
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 20px;
 }
 section {
-	margin: 50px 0
+	margin: 50px 0;
 }
 
 h1{
-	font-family: 'Syne';
-	font-size: 22px;
-	font-weight: 800;
-	color: #B1663C
+	display: flex;
+   flex-direction: column;
+   font-family: 'Syne';
+   font-size: 22px;
+   font-weight: 800;
+   color: #B1663C;
 }
 
 h1 > span {
@@ -101,7 +111,7 @@ nav ul {
 nav li :hover {
     font-weight: 700;
 }
-nav li :visited {
+li :visited{
     font-weight: 700;
 }
 
@@ -149,7 +159,7 @@ nav a {
 	align-items: center;
 }
 #introduction figure {
-	flex: 1
+	flex: 1;
 }
 #introduction img {
 	display: block;
@@ -157,7 +167,7 @@ nav a {
 	width: 80%;
 }
 #introduction article {
-	flex: 1
+	flex: 1;
 }
 #introduction h2 {
 	margin-bottom: 1em;
@@ -170,6 +180,43 @@ nav a {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+/*filters div*/
+.filters{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+#btn-all{
+
+        font-size: 16px;
+        font-weight: 700;
+        color: #1D6154;
+        border: 1px solid #1D6154;
+        background-color:  #FFFEF8;
+        border-radius: 60px;
+        padding: 10px 20px;
+        margin-top: 21px;
+        margin-bottom: 51px;
+        cursor: pointer;
+
+}
+#btn-objects,#btn-apartments,#btn-hotels{
+    font-size: 16px;
+    font-weight: 700;
+    color: #1D6154;
+    border: 1px solid #1D6154;
+    border-radius: 60px;
+    padding: 10px 20px;
+    margin-top: 21px;
+    margin-bottom: 51px;
+    cursor: pointer;
+    background-color:  #FFFEF8;
+}
+#filteractive{
+    background-color: #1D6154;
+    color: #FFFFFF;
+  }
 .gallery {
 	width: 100%;
 	display: grid;
@@ -235,6 +282,7 @@ input[type="submit"]{
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	margin: 2em;
 }
+
 
