@@ -116,7 +116,7 @@ function blackBar() {
   icon.classList.add("fa-regular", "fa-pen-to-square");
   let h3 = document.createElement("h3");
   h3.innerHTML = "Mode édition";
-  let link = document.createElement("a");
+  let link = document.createElement("buttongit");
   link.setAttribute("href", "#");
   link.textContent = "publier les changements";
 
