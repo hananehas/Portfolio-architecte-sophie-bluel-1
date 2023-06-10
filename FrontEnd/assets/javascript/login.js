@@ -41,9 +41,9 @@ document.querySelector("#btn-login").onclick = (e) => {
         if (res.ok) {
           return res.json();
         } else if (res.status === 404) {
-          error.innerHTML = "Erreur dans l'identifiant";
+          error.innerHTML = "identifiant incorrect";
         } else if (res.status === 401) {
-          error.innerHTML = "Erreur dans le mot de passe";
+          error.innerHTML = "mot de passe incorrect";
         }
       })
       .then((userLogged) => {
