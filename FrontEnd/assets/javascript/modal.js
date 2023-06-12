@@ -303,6 +303,8 @@ function clearForm() {
     imgFile.style.visibility = "hidden";
     inputContainer.style.display = "inline-block";
 }
+document.addEventListener("DOMContentLoaded", function() {
+    getWorksArrays();
+    getCategoriesArrays();
+});
 
-getWorksArrays();
-getCategoriesArrays();

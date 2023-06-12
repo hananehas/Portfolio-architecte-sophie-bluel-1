@@ -444,7 +444,7 @@ hr {
     cursor: pointer;
     background-color:  #FFFEF8;
 }
-.filterActive{
+#btnObjects:active,#btnHotels:active,#btnAppartements:active,#btnAll:active{
     background-color: #1D6154;
     color: #FFFFFF;
     
