@@ -182,13 +182,13 @@ nav a {
 }
 #portfolio h2 {
 	text-align: center;
-    margin-bottom: 2em;
+    margin-bottom: 4em;
 }
 #figure .modify {
     margin-left:7rem;
 }
 .link-wrapper div {
-    margin-left: 20rem;
+    margin-left: 31em;
     margin-top: -5.2em;
     margin-bottom: 2em;
 }
@@ -204,7 +204,226 @@ font-weight: 300;
 	
 
 }
+.modifyWorks {
+	align-self: center;
+}
+.fa-pen-to-square {
+	font-size: 20px;
+	margin-right: 10px;
+}
+.modifyLink {
+	text-decoration: none;
+	color: #000000;
+	vertical-align: text-top;
+}
+.flexCenter {
+	justify-content: center;
+	align-items: center;
+}
+#openModalButton {
+        font-family: 'Work Sans';
+        font-style: normal;
+        font-size: 20px;
+        font-weight: 300;
+        border: none;
+        background: none;
+        display: none;
+        margin-left: 10em;
+        margin-top: -8.2em;
+        margin-bottom: 2em;
+}
+.modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.3);
+	margin: 0 auto;
+}
+.modalGallery, .modalAddWork {
+	border: 1px black solid;
+	background-color: #FFFFFF;
+	border-radius: 10px;
+	width: 630px;
+	position: relative;
+	max-width: calc(100vw - 100px);
+	max-height: calc(100vh - 100px);
+	overflow: auto;
+}
+.modalAddWork {
+	display: none;
 
+}
+
+.icons {
+	display: flex;
+	justify-content: space-between;
+}
+.fa-arrow-left {
+	font-size: 20px;
+	margin: 30px 0 0 30px;
+}
+.fa-xmark {
+	font-size: 20px;
+	margin: 30px 35px;
+	position: absolute;
+	right: 0;
+}
+.modalGallery h3,
+.modalAddWork h3 {
+	font-size: 26px;
+	text-align: center;
+	margin-top: 16px;
+	margin-bottom: 46px;
+}
+.modalGallery h3 {
+	margin-top: 60px;
+}
+.galleryContainer {
+	margin: 0 105px;
+	display: grid;
+	justify-content:center;
+	grid-template-columns: repeat(auto-fit, minmax(75px, max-content));
+	grid-gap: 7px 10px;
+}
+.galleryContainer figure {
+	position: relative;
+}
+.galleryContainer img {
+	width: 100%;
+}
+.trashContainer {
+	z-index: 1;
+	position: absolute;
+	top: 6px;
+	right: 6px;
+}
+.fa-trash-can,
+.fa-arrows-up-down-left-right {
+	font-size: 10px;
+	background-color: #000000;
+	color: #FFFFFF;
+	padding: 3px;
+	line-height: normal;
+	border-radius: 2px;
+}
+hr {
+	width: 67%;
+	margin-top: 47px;
+}
+.flexColumn {
+	display: flex;
+	flex-direction: column;
+}
+.textCenter {
+	text-align: center;
+}
+#addWorkButton {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin: 38px auto 0 auto;
+	width: 237px;
+	border-radius: 60px;
+	height: 36px;
+	border: none;
+}
+#deleteWorkButton {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: #D65353;
+	margin-top: 23px;
+	margin-bottom: 48px;
+	border: none;
+	background: none;
+}
+
+.imgContainer {
+	background: #E8F1F6;
+	width: 65%;
+	height: 169px;
+	border-radius: 3px;
+	text-align: center;
+	margin: 0 auto 10px auto;
+	position: relative;
+	padding-bottom: 11px;
+}
+.imgContainer .fa-image {
+	display: block;
+	color: #B9C5CC;
+	font-size: 60px;
+	padding-top: 25px;
+	margin-bottom: 20px;
+}
+.imgContainer label {
+	display: inline-block;
+	font-family: 'Syne';
+	color: #306685;
+	background-color: #CBD6DC;
+	padding: 10px 33px;
+	border-radius: 50px;
+	font-weight: 500;
+}
+#addImgButton {
+	display: none;
+}
+#imgPreview {
+	width: 129px;
+	height: 180px;
+	object-fit: cover;
+	position: absolute;
+	top: 0;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	visibility: hidden;
+}
+.imgContainer p {
+	margin-top: 7px;
+	font-size: 12px;
+}
+.imgErrorMessage {
+	color: #ff0000;
+	position: relative;
+	top: 5px;
+	font-size: 13px;
+}
+
+.info {
+	margin: 0 auto 47px auto;
+	width: 65%;
+}
+.info label {
+	text-align: left;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+.titleErrorMessage {
+	color: #ff0000;
+	font-size: 13px;
+	text-align: left;
+	margin-top: 5px;
+}
+.inputError {
+	background: #fff0f4;
+	border: 2px #ff0000 solid;
+}
+.info input, .info select {
+	height: 50px;
+}
+#submitWork {
+	width: 240px;
+	height: 36px;
+	border: none;
+	margin-top: 32px;
+	margin-bottom: 55px;
+	display: flex;
+	justify-content: center;
+}
 
 /*filters */
 .filters{
@@ -212,7 +431,7 @@ font-weight: 300;
     gap: 10px;
     justify-content: center;
 }
-.filtersBtn{
+#btnObjects,#btnHotels,#btnAppartements,#btnAll{
 
     font-size: 16px;
     font-weight: 700;

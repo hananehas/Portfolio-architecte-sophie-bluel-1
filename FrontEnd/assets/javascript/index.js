@@ -3,6 +3,7 @@ const filters = document.querySelector(".filters");
 const btnLogin = document.getElementById("login");
 
 // Fetch the works from the API
+
 fetch("http://localhost:5678/api/works")
   .then((res) => res.json())
   .then((result) => {
@@ -20,24 +21,23 @@ fetch("http://localhost:5678/api/works")
       createArticle(result);
       blackBar();
       edit();
-      modaleLink();
-      createGalerieWork();
+
     } else {
       // If their is no token, only display the filters and the gallery
       createArticle(result);
-      createButton("Tous", "btn-all");
-      createButton("Objets", "btn-objects" );
-      createButton("Appartements", "btn-apartments");
-      createButton(`Hôtels & restaurants`, "btn-hotels");
+      createButton("Tous", "btnAll" ,"filterActive");
+      createButton("Objets", "btnObjects" );
+      createButton("Appartements", "btnAppartements");
+      createButton(`Hôtels & restaurants`, "btnHotels");
       filtersAll(result);
-      filterObjets(result);
-      filterApartments(result);
+      filterObjects(result);
+      filterAppartments(result);
       filterHotels(result);
-      console.table(result);
+      updateFilterActive(activeButton) 
     }
   })
   .catch((err) => {
-    alert("erreur 404, problème avec le serveur:" + err);
+    alert("erreur 404" + err);
   });
 
 // Function to create an article element and display to the Gallery
@@ -64,47 +64,67 @@ function createButton(text, className) {
   button.textContent = text;
   button.id = className;
   filters.appendChild(button);
+  
 }
+
+// ...
 
 // Function to create a filter to display all category
 function filtersAll(result) {
-  const buttonAll = document.querySelector(".filtersBtn");
+  const buttonAll = document.querySelector("#btnAll");
   buttonAll.classList.add("filterActive");
+
   buttonAll.addEventListener("click", function () {
     const allObjects = result.filter((obj) => obj.categoryId != null);
     document.querySelector(".gallery").innerHTML = "";
     createArticle(allObjects);
+    updateFilterActive(buttonAll);
   });
 }
 
-// Function to create a filter to display all Object
-function filterObjets(result) {
-  const buttonObjects = document.querySelector(".filtersBtn");
+// Function to create a filter to display all Objects
+function filterObjects(result) {
+  const buttonObjects = document.querySelector("#btnObjects");
+
   buttonObjects.addEventListener("click", function () {
     const filteredObjects = result.filter((obj) => obj.categoryId === 1);
     document.querySelector(".gallery").innerHTML = "";
     createArticle(filteredObjects);
+    updateFilterActive(buttonObjects);
   });
 }
 
 // Function to create a filter to display all Apartments
-function filterApartments(result) {
-  const buttonApartments = document.querySelector(".filtersBtn");
-  buttonApartments.addEventListener("click", function () {
-    const filteredApartments = result.filter((obj) => obj.categoryId === 2);
+function filterAppartments(result) {
+  const buttonAppartments = document.querySelector("#btnAppartements");
+
+  buttonAppartments.addEventListener("click", function () {
+    const filteredAppartments = result.filter((obj) => obj.categoryId === 2);
     document.querySelector(".gallery").innerHTML = "";
-    createArticle(filteredApartments);
+    createArticle(filteredAppartments);
+    updateFilterActive(buttonAppartments);
   });
 }
 
 // Function to create a filter to display all Hotels
 function filterHotels(result) {
-  const buttonHotels = document.querySelector(".filtersBtn");
+  const buttonHotels = document.querySelector("#btnHotels");
+
   buttonHotels.addEventListener("click", function () {
     const filteredHotels = result.filter((obj) => obj.categoryId === 3);
     document.querySelector(".gallery").innerHTML = "";
     createArticle(filteredHotels);
+    updateFilterActive(buttonHotels);
   });
+}
+
+// Function to update the active filter button
+function updateFilterActive(activeButton) {
+  const buttons = document.querySelectorAll(".filters button");
+  buttons.forEach((button) => {
+    button.classList.remove("filterActive");
+  });
+  activeButton.classList.add("filterActive");
 }
 
 // Function to create a black bar for edition mode
@@ -128,35 +148,26 @@ function blackBar() {
 // function to create modify button
 function edit() {
     const articleElement = document.querySelector("article");
-    const linkWrapperElement = document.querySelector(".link-wrapper");
     const photoElement = document.querySelector("figure");
 
-    const editButton = document.createElement('div');
+    const editButton = document.createElement('a'); // Modifier le bouton en tant que lien
 
     const iconElement = document.createElement('i');
-    iconElement.className = 'fa fa-sharp fa-light fa-pen-to-square';
+    iconElement.className = "fa-regular fa-pen-to-square";
 
     const textElement = document.createElement('span');
-    textElement.textContent = 'Modifier';
+    textElement.textContent = 'modifier';
 
-    const containerElement = document.createElement('div');
-    containerElement.appendChild(iconElement);
-    containerElement.appendChild(textElement);
+    
+    editButton.appendChild(iconElement);
+    editButton.appendChild(textElement);
 
-    editButton.appendChild(containerElement);
+   
 
     editButton.classList.add('modify');
+     // Ajouter l'attribut href avec l'ID du modal
 
     articleElement.appendChild(editButton);
-    linkWrapperElement.appendChild(editButton.cloneNode(true));
     photoElement.appendChild(editButton.cloneNode(true));
-
-
-    modifyButton.addEventListener('click', function () {
-        createModal();
-    })
 }
-
-
-
 // Function for display the modal link
