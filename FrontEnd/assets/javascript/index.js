@@ -1,4 +1,3 @@
-// Get the token from the local Storage
 const token = localStorage.getItem("token");
 const filters = document.querySelector(".filters");
 const btnLogin = document.getElementById("login");
@@ -20,7 +19,7 @@ fetch("http://localhost:5678/api/works")
       // Call the function to create the articles, add the blackBar, allow the user to modify the gallery
       createArticle(result);
       blackBar();
-      editPhoto();
+      edit();
       modaleLink();
       createGalerieWork();
     } else {
@@ -69,7 +68,8 @@ function createButton(text, className) {
 
 // Function to create a filter to display all category
 function filtersAll(result) {
-  const buttonAll = document.querySelector("#btn-all");
+  const buttonAll = document.querySelector(".filtersBtn");
+  buttonAll.classList.add("filterActive");
   buttonAll.addEventListener("click", function () {
     const allObjects = result.filter((obj) => obj.categoryId != null);
     document.querySelector(".gallery").innerHTML = "";
@@ -79,7 +79,7 @@ function filtersAll(result) {
 
 // Function to create a filter to display all Object
 function filterObjets(result) {
-  const buttonObjects = document.querySelector("#btn-objects");
+  const buttonObjects = document.querySelector(".filtersBtn");
   buttonObjects.addEventListener("click", function () {
     const filteredObjects = result.filter((obj) => obj.categoryId === 1);
     document.querySelector(".gallery").innerHTML = "";
@@ -89,7 +89,7 @@ function filterObjets(result) {
 
 // Function to create a filter to display all Apartments
 function filterApartments(result) {
-  const buttonApartments = document.querySelector("#btn-apartments");
+  const buttonApartments = document.querySelector(".filtersBtn");
   buttonApartments.addEventListener("click", function () {
     const filteredApartments = result.filter((obj) => obj.categoryId === 2);
     document.querySelector(".gallery").innerHTML = "";
@@ -99,7 +99,7 @@ function filterApartments(result) {
 
 // Function to create a filter to display all Hotels
 function filterHotels(result) {
-  const buttonHotels = document.querySelector("#btn-hotels");
+  const buttonHotels = document.querySelector(".filtersBtn");
   buttonHotels.addEventListener("click", function () {
     const filteredHotels = result.filter((obj) => obj.categoryId === 3);
     document.querySelector(".gallery").innerHTML = "";
@@ -109,25 +109,54 @@ function filterHotels(result) {
 
 // Function to create a black bar for edition mode
 function blackBar() {
-  let blackBar = document.querySelector("header");
-  let sectionMode = document.createElement("div");
-  sectionMode.setAttribute("id", "edition-mode");
-  let icon = document.createElement("i");
-  icon.classList.add("fa-regular", "fa-pen-to-square");
-  let h3 = document.createElement("h3");
-  h3.innerHTML = "Mode édition";
-  let link = document.createElement("button");
-  link.setAttribute("href", "#");
-  link.textContent = "publier les changements";
+    let blackBar = document.querySelector("body");
+    let sectionMode = document.createElement("div");
+    sectionMode.setAttribute("id", "edition-mode");
+    let icon = document.createElement("i");
+    icon.classList.add("fa-regular", "fa-pen-to-square");
+    let h3 = document.createElement("h3");
+    h3.innerHTML = "Mode édition";
+    let link = document.createElement("button");
+    link.setAttribute("href", "#");
+    link.textContent = "publier les changements";
 
-  blackBar.parentNode.insertBefore(sectionMode, blackBar);
-  sectionMode.append(icon);
-  sectionMode.append(h3);
-  sectionMode.append(link);
+    blackBar.parentNode.insertBefore(sectionMode, blackBar);
+    sectionMode.append(icon);
+    sectionMode.append(h3);
+    sectionMode.append(link);
 }
+// function to create modify button
+function edit() {
+    const articleElement = document.querySelector("article");
+    const linkWrapperElement = document.querySelector(".link-wrapper");
+    const photoElement = document.querySelector("figure");
+
+    const editButton = document.createElement('div');
+
+    const iconElement = document.createElement('i');
+    iconElement.className = 'fa fa-sharp fa-light fa-pen-to-square';
+
+    const textElement = document.createElement('span');
+    textElement.textContent = 'Modifier';
+
+    const containerElement = document.createElement('div');
+    containerElement.appendChild(iconElement);
+    containerElement.appendChild(textElement);
+
+    editButton.appendChild(containerElement);
+
+    editButton.classList.add('modify');
+
+    articleElement.appendChild(editButton);
+    linkWrapperElement.appendChild(editButton.cloneNode(true));
+    photoElement.appendChild(editButton.cloneNode(true));
+
+
+    modifyButton.addEventListener('click', function () {
+        createModal();
+    })
+}
+
+
 
 // Function for display the modal link
-function modaleLink() {
-  const target = document.querySelector(".modal-link");
-  target.style.display = "block";
-}

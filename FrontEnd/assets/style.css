@@ -163,14 +163,18 @@ nav a {
 }
 #introduction img {
 	display: block;
-	margin: auto;
+	margin-right: auto;
 	width: 80%;
 }
 #introduction article {
 	flex: 1;
 }
+#introduction article .modify{
+    margin-top: -15em;
+}
 #introduction h2 {
-	margin-bottom: 1em;
+	margin-top: -4em;
+    margin-bottom: 2em;
 }
 
 #introduction p {
@@ -178,30 +182,38 @@ nav a {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
+    margin-bottom: 2em;
+}
+#figure .modify {
+    margin-left:7rem;
+}
+.link-wrapper div {
+    margin-left: 20rem;
+    margin-top: -5.2em;
+    margin-bottom: 2em;
+}
+.link-wrapper  div i{
+    margin-left: 2em;
+}
+/*modal*/
+.modify {
+    font-family: 'Work Sans';
+font-style: normal;
+font-size: 20px;
+font-weight: 300;
+	
+
 }
 
-/*filters div*/
+
+/*filters */
 .filters{
     display: flex;
     gap: 10px;
     justify-content: center;
 }
-#btn-all{
+.filtersBtn{
 
-        font-size: 16px;
-        font-weight: 700;
-        color: #1D6154;
-        border: 1px solid #1D6154;
-        background-color:  #FFFEF8;
-        border-radius: 60px;
-        padding: 10px 20px;
-        margin-top: 21px;
-        margin-bottom: 51px;
-        cursor: pointer;
-
-}
-#btn-objects,#btn-apartments,#btn-hotels{
     font-size: 16px;
     font-weight: 700;
     color: #1D6154;
@@ -213,10 +225,11 @@ nav a {
     cursor: pointer;
     background-color:  #FFFEF8;
 }
-#filteractive{
+.filterActive{
     background-color: #1D6154;
     color: #FFFFFF;
-  }
+    
+}
 .gallery {
 	width: 100%;
 	display: grid;
@@ -260,14 +273,6 @@ margin: auto;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-form{
-    text-align: left;
-    margin-top: 30px;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-  
-}
 input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
@@ -285,4 +290,44 @@ footer nav ul {
 	margin: 2em;
 }
 
+/*login*/
+#login{
+    text-align: center;
+}
+#login, #contact {
+	width: 50%;
+	margin: auto;
+}
 
+#login h2, #contact h2{
+	margin-bottom: 20px;
+    text-align: center;
+}
+#login form, #contact form, .container form {
+	text-align: left;
+	margin-top:30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#login input, #contact input, .container input, .container select {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#login label, #contact label, .container label {
+	margin: 2em 0 1em 0;
+    
+}
+
+#login textarea, #contact textarea {
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#form label{
+    text-align: left;
+}
+#login-bold {
+	font-weight: bold;
+}
