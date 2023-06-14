@@ -1,144 +1,123 @@
 const token = localStorage.getItem("token");
-const filters = document.querySelector(".filters");
 const btnLogin = document.getElementById("login");
+if (token !== "" && token !== null) {
+    fetch("http://localhost:5678/api/works")
+    // Logout function to remove the token
+    btnLogin.innerHTML = "logout";
+    btnLogin.addEventListener("click", function () {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        btnLogin.setAttribute("href", "index.html");
+    });
+    edit();
+    blackBar();
+    let openModalButton = document.getElementById("openModalButton");
+    openModalButton.style.display = "block";
+} else {
 
-// Fetch the works from the API
 
-fetch("http://localhost:5678/api/works")
-    .then((res) => res.json())
-    .then((result) => {
-        works = result;
-        // If there is a token, enable different function for the user
-        if (token) {
-            // Logout function to remove the token
-            btnLogin.innerHTML = "logout";
-            btnLogin.addEventListener("click", function () {
-                localStorage.removeItem("token");
-                localStorage.removeItem("userId");
-                btnLogin.setAttribute("href", "index.html");
+}
+    // Call functio to create filters with categories ID in the gallery
+
+function getAllWorksAndCategories() {
+    fetch("http://localhost:5678/api/works")
+        .then( (res)=>res.json())
+        .then((works)=> {
+            fetch("http://localhost:5678/api/categories")
+                .then((res)=> {
+                    if (res.ok) {
+                        return res.json();
+                    }
+                })
+                .then( (categories)=> {
+                    const filtersContainer = document.getElementById("filtersButtons");
+                    const gallery = document.getElementById("gallery");
+                    gallery.innerHTML = "";
+
+                    if (token === null) { // Vérifie si le token est présent ou non
+                        const filterAll = document.createElement("li");
+                        filterAll.setAttribute("id", 0);
+                        filterAll.innerHTML = "Tous";
+                        filterAll.classList.add("filters", "filterSelected");
+                        filtersContainer.appendChild(filterAll);
+
+                        categories.forEach(function (category) {
+                            const filters = document.createElement("li");
+                            filters.innerText = category.name;
+                            filters.id = category.id;
+                            filters.classList.add("filters");
+                            filtersContainer.appendChild(filters);
+                            filterSelected(filters, works);
+                        });
+
+                        filterSelected(filterAll, works);
+                    }
+
+                    if (works.length > 0) {
+                        showWorks(works, 0);
+                    }
+                })
+                .catch(function (err) {
+                    console.error(err);
+                });
+        })
+        .catch(function (err) {
+            console.error(err);
+        });
+}
+
+getAllWorksAndCategories();
+    
+
+//function for mooving the selectedfilter
+function filterSelected(element, works) {
+    element.addEventListener("click", function () {
+        const activeFilter = document.getElementsByClassName("filterSelected");
+        if (activeFilter.length !== 0) {
+            Array.from(activeFilter).forEach(function (element) {
+                element.classList.remove("filterSelected");
             });
-            // Call the function to create the articles, add the blackBar, allow the user to modify the gallery
-            createArticle(result);
-            blackBar();
-            edit();
-
-        } else {
-            // If their is no token, only display the filters and the gallery
-            createArticle(result);
-            createButton("Tous", "btnAll");
-            createButton("Objets", "btnObjects");
-            createButton("Appartements", "btnAppartements");
-            createButton(`Hôtels & restaurants`, "btnHotels");
-            filtersAll(result);
-            filterObjects(result);
-            filterAppartments(result);
-            filterHotels(result);
-            
         }
-    })
-    .catch((err) => {
-        alert("erreur 404" + err);
-    });
-
-// Function to create an article element and display to the Gallery
-function createArticle(result) {
-    let sectionArticle = document.querySelector(".gallery");
-    result.forEach((article) => {
-        let articleElement = document.createElement("figure");
-        articleElement.dataset.id = article.id;
-        let imageElement = document.createElement("img");
-        imageElement.src = article.imageUrl;
-        let nomElement = document.createElement("p");
-        nomElement.innerText = article.title;
-
-        articleElement.append(imageElement);
-        articleElement.append(nomElement);
-        sectionArticle.append(articleElement);
+        element.classList.add("filterSelected");
+        showWorks(works, element.id);
     });
 }
+//function to show works in gallery
+function showWorks(works, categoryValue) {
+    const gallery = document.getElementById("gallery");
+    gallery.innerHTML = "";
 
-// Function to create the filters button
-function createButton(text, className) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.textContent = text;
-    button.id = className;
-    filters.appendChild(button);
+    if (categoryValue == 0) {
+        works.forEach(function (work) {
+            addWork(work);
+        });
+    } else {
+        works.forEach(function (work) {
+            if (categoryValue == work.categoryId) {
+                addWork(work);
+            }
+        });
+    }
+}
+// function to create figure 
+function addWork(work) {
+    const gallery = document.getElementById("gallery");
+    const figure = document.createElement("figure");
+    const img = document.createElement("img");
+    const caption = document.createElement("figcaption");
 
+    figure.id = work.id;
+    img.src = work.imageUrl;
+    caption.innerText = work.title;
+
+    img.setAttribute("alt", work.title);
+
+    figure.appendChild(img);
+    figure.appendChild(caption);
+    gallery.appendChild(figure);
 }
 
-// ...
 
-// Function to create a filter to display all category
-function filtersAll(result) {
-    const buttonAll = document.querySelector("#btnAll");
-    buttonAll.classList.add(".filterActive");
-
-    buttonAll.addEventListener("click", function () {
-        const allObjects = result.filter((obj) => obj.categoryId != null);
-        document.querySelector(".gallery").innerHTML = "";
-        createArticle(allObjects);
-       
-    });
-}
-
-// Function to create a filter to display all Objects
-function filterObjects(result) {
-    const buttonObjects = document.querySelector("#btnObjects");
-
-    buttonObjects.addEventListener("click", function () {
-        const filteredObjects = result.filter((obj) => obj.categoryId === 1);
-        document.querySelector(".gallery").innerHTML = "";
-        createArticle(filteredObjects);
-        
-    });
-}
-
-// Function to create a filter to display all Apartments
-function filterAppartments(result) {
-    const buttonAppartments = document.querySelector("#btnAppartements");
-
-    buttonAppartments.addEventListener("click", function () {
-        const filteredAppartments = result.filter((obj) => obj.categoryId === 2);
-        document.querySelector(".gallery").innerHTML = "";
-        createArticle(filteredAppartments);
-        
-    });
-}
-
-// Function to create a filter to display all Hotels
-function filterHotels(result) {
-    const buttonHotels = document.querySelector("#btnHotels");
-
-    buttonHotels.addEventListener("click", function () {
-        const filteredHotels = result.filter((obj) => obj.categoryId === 3);
-        document.querySelector(".gallery").innerHTML = "";
-        createArticle(filteredHotels);
-        
-    });
-}
-
-// Function to update the active filter button
-
-
-// Function to create a black bar for edition mode
-function blackBar() {
-    let blackBar = document.querySelector("body");
-    let sectionMode = document.createElement("div");
-    sectionMode.setAttribute("id", "edition-mode");
-    let icon = document.createElement("i");
-    icon.classList.add("fa-regular", "fa-pen-to-square");
-    let h3 = document.createElement("h3");
-    h3.innerHTML = "Mode édition";
-    let link = document.createElement("button");
-    link.setAttribute("href", "#");
-    link.textContent = "publier les changements";
-
-    blackBar.parentNode.insertBefore(sectionMode, blackBar);
-    sectionMode.append(icon);
-    sectionMode.append(h3);
-    sectionMode.append(link);
-}
 // function to create modify button
 function edit() {
     const articleElement = document.querySelector("article");
@@ -159,9 +138,25 @@ function edit() {
 
 
     editButton.classList.add('modify');
-    // Ajouter l'attribut href avec l'ID du modal
 
     articleElement.appendChild(editButton);
     photoElement.appendChild(editButton.cloneNode(true));
 }
-// Function for display the modal link
+// fonction to create blacknav for mode edition
+function blackBar() {
+    let blackBar = document.querySelector("body");
+    let sectionMode = document.createElement("div");
+    sectionMode.setAttribute("id", "edition-mode");
+    let icon = document.createElement("i");
+    icon.classList.add("fa-regular", "fa-pen-to-square");
+    let h3 = document.createElement("h3");
+    h3.innerHTML = "Mode édition";
+    let link = document.createElement("button");
+    link.setAttribute("href", "#");
+    link.textContent = "publier les changements";
+
+    blackBar.parentNode.insertBefore(sectionMode, blackBar);
+    sectionMode.append(icon);
+    sectionMode.append(h3);
+    sectionMode.append(link);
+}

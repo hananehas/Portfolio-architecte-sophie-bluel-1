@@ -1,6 +1,6 @@
 let currentModal = null;
 
-async function getAllCategories() {
+async function getCategories() {
     try {
         const res = await fetch("http://localhost:5678/api/categories");
         if (res.ok) {
@@ -11,7 +11,7 @@ async function getAllCategories() {
         console.error(err);
     }
 }
-async function getAllWorks() {
+async function getWorks() {
     try {
       const res = await fetch("http://localhost:5678/api/works");
       if (res.ok) {
@@ -25,11 +25,6 @@ async function getAllWorks() {
 
 
 
-
-if(token !== "" && token !== null) {
-    let openModalButton = document.getElementById("openModalButton");
-    openModalButton.style.display = "block";
-}
 
 //prevent closing modal by clicking inside of it
 const stopPropagation = function (e) {
@@ -100,7 +95,7 @@ window.addEventListener("keydown", function (e) {
 
 //get all works from the API
 async function getWorksArrays() {
-    const works = await getAllWorks();
+    const works = await getWorks();
     addWorksToModal(works);
 }
 
@@ -228,7 +223,7 @@ workTitle.addEventListener("input", (e) => {
 
 //get all categories from the API
 async function getCategoriesArrays() {
-    const categories = await getAllCategories();
+    const categories = await getCategories();
     addCategoriesToModal(categories);
 }
 
@@ -307,4 +302,5 @@ document.addEventListener("DOMContentLoaded", function() {
     getWorksArrays();
     getCategoriesArrays();
 });
+
 

@@ -426,12 +426,12 @@ hr {
 }
 
 /*filters */
-.filters{
+#filtersButtons{
     display: flex;
     gap: 10px;
     justify-content: center;
 }
-#btnObjects,#btnHotels,#btnAppartements,#btnAll{
+.filters{
 
     font-size: 16px;
     font-weight: 700;
@@ -444,12 +444,12 @@ hr {
     cursor: pointer;
     background-color:  #FFFEF8;
 }
-#btnObjects:active,#btnHotels:active,#btnAppartements:active,#btnAll:active{
+.filterSelected{
     background-color: #1D6154;
     color: #FFFFFF;
     
 }
-.gallery {
+#gallery {
 	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
@@ -457,7 +457,7 @@ hr {
 	grid-row-gap: 20px;
 }
 
-.gallery img {
+#gallery img {
 	width: 100%;
 
 }
