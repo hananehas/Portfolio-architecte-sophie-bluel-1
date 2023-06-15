@@ -107,6 +107,7 @@ const addWorksToModal = (works) => {
 };
 
 function addWorkToModal(work) {
+    
     const gallery = document.getElementById("galleryContainer");
     const figure = document.createElement("figure");
     const img = document.createElement("img");
@@ -114,7 +115,8 @@ function addWorkToModal(work) {
     const trash = document.createElement("i");
     const caption = document.createElement("figcaption");
 
-    figure.id = work.id;
+    figure.id = "modal-project-work-"+work.id;
+    figure.dataset.id=work.id
     img.src = work.imageUrl;
     trashContainer.classList.add("trashContainer", "cursorPointer");
     trash.classList.add("fa-regular", "fa-trash-can");
@@ -145,8 +147,8 @@ async function deleteWork (workId) {
             },
         });
         if (res.ok) {
-            document.getElementById(workId).remove();
-            document.getElementById("project-work-" + workId).remove();
+            document.querySelector("#modal-project-work-"+workId).remove();
+            document.querySelector("#gallery-project-work-"+workId).remove();
         }
     }
     catch (err) {
@@ -244,7 +246,7 @@ const addCategoriesToModal = (categories) => {
 
 //validate the form
 const submitNewWork = document.getElementById("submitWork");
-submitNewWork.addEventListener("click", (event) => {
+submitNewWork.addEventListener("click", async (event) => {
     event.preventDefault();
 
     let fileSize = imgButton.files[0].size;
@@ -263,7 +265,8 @@ submitNewWork.addEventListener("click", (event) => {
         formData.append("title", workTitle.value);
         formData.append("category", selectedIdOption);
 
-        sendForm(formData);
+        await sendForm(formData);
+        closeModal(event);
     }
 });
 
@@ -302,5 +305,3 @@ document.addEventListener("DOMContentLoaded", function() {
     getWorksArrays();
     getCategoriesArrays();
 });
-
-

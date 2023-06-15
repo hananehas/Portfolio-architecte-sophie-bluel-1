@@ -106,7 +106,8 @@ function addWork(work) {
     const img = document.createElement("img");
     const caption = document.createElement("figcaption");
 
-    figure.id = work.id;
+    figure.id = "gallery-project-work-"+work.id;
+    figure.dataset.id=work.id;
     img.src = work.imageUrl;
     caption.innerText = work.title;
 
